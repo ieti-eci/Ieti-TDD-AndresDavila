@@ -1,5 +1,6 @@
 package org.adaschool.tdd.repository.document;
 
+import org.adaschool.tdd.controller.weather.dto.WeatherReportDto;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.index.Indexed;
 import org.springframework.data.mongodb.core.mapping.Document;
@@ -31,6 +32,14 @@ public class WeatherReport
         this.humidity = humidity;
         this.reporter = reporter;
         this.created = created;
+    }
+
+    public WeatherReport(WeatherReportDto weatherReportDto) {
+        this.geoLocation = weatherReportDto.getGeoLocation();
+        this.temperature = weatherReportDto.getTemperature();
+        this.humidity = weatherReportDto.getHumidity();
+        this.reporter = weatherReportDto.getReporter();
+        this.created = weatherReportDto.getCreated();
     }
 
     public GeoLocation getGeoLocation()
@@ -71,8 +80,8 @@ public class WeatherReport
         }
         WeatherReport that = (WeatherReport) o;
         return Double.compare( that.temperature, temperature ) == 0 && Double.compare( that.humidity, humidity ) == 0
-            && Objects.equals( id, that.id ) && Objects.equals( geoLocation, that.geoLocation ) && Objects.equals(
-            reporter, that.reporter ) && Objects.equals( created, that.created );
+                && Objects.equals( id, that.id ) && Objects.equals( geoLocation, that.geoLocation ) && Objects.equals(
+                reporter, that.reporter ) && Objects.equals( created, that.created );
     }
 
     @Override
